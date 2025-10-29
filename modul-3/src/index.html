@@ -1,119 +1,140 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GYMFIT - Landing Page</title>
-  <link href="output.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JB14 GYM & FITNESS - Landing Page</title>
+    <link href="output.css" rel="stylesheet">
 </head>
+
 <body class="font-sans text-gray-800">
 
-    <header class="bg-black text-white p-4 fixed w-full z-10">
-    <div class="container mx-auto flex justify-between items-center">
-      <h1 class="text-2xl font-bold">JB14 GYM & FITNESS</h1>
-      <nav class="space-x-4 hidden md:flex">
-        <a href="#home" class="hover:text-red-500">Beranda</a>
-        <a href="#about" class="hover:text-red-500">Tentang</a>
-        <a href="#services" class="hover:text-red-500">Layanan</a>
-        <a href="#fasilitas" class="hover:text-red-500">Fasilitas</a>
-                <a href="#latihan" class="hover:text-red-500">Latihan</a>
-        <a href="#testimonials" class="hover:text-red-500">Testimonials</a>
-        <a href="#contact" class="hover:text-red-500">Kontak</a>
-      </nav>
-    </div>
-  </header>
+    <header class="bg-black text-white p-4 fixed w-full z-20 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-extrabold text-red-500">JB14 GYM & FITNESS</h1>
+            
+            <nav class="space-x-6 hidden md:flex font-medium">
+                <a href="#home" class="hover:text-red-500 transition duration-300">Beranda</a>
+                <a href="#about" class="hover:text-red-500 transition duration-300">Tentang</a>
+                <a href="#services" class="hover:text-red-500 transition duration-300">Layanan</a>
+                <a href="#fasilitas" class="hover:text-red-500 transition duration-300">Fasilitas</a>
+                <a href="#latihan" class="hover:text-red-500 transition duration-300">Latihan</a>
+                <a href="#testimonials" class="hover:text-red-500 transition duration-300">Testimonials</a>
+                <a href="#contact" class="hover:text-red-500 transition duration-300">Kontak</a>
+            </nav>
 
-    <section id="home" class="h-screen bg-gray-900 text-white flex items-center justify-center text-center">
-    <div>
-      <h2 class="text-4xl md:text-6xl font-bold mb-4">Bangun Tubuhmu, Bangun Hidupmu</h2>
-      <p class="mb-6 text-lg">Mulai perjalanan fitness Anda bersama JB14 GYM & FITNESS</p>
-      <a href="#contact" class="bg-red-500 px-6 py-3 rounded text-white hover:bg-red-600">Join Now</a>
-    </div>
-  </section>
+            <button id="mobile-menu-button" class="md:hidden p-2 rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-red-500" aria-label="Toggle navigation menu">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+        <nav id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-black shadow-lg">
+            <a href="#home" class="block py-2 px-4 hover:bg-gray-700">Beranda</a>
+            <a href="#about" class="block py-2 px-4 hover:bg-gray-700">Tentang</a>
+            <a href="#services" class="block py-2 px-4 hover:bg-gray-700">Layanan</a>
+            <a href="#fasilitas" class="block py-2 px-4 hover:bg-gray-700">Fasilitas</a>
+            <a href="#latihan" class="block py-2 px-4 hover:bg-gray-700">Latihan</a>
+            <a href="#testimonials" class="block py-2 px-4 hover:bg-gray-700">Testimonials</a>
+            <a href="#contact" class="block py-2 px-4 hover:bg-gray-700">Kontak</a>
+        </nav>
+    </header>
 
-    <section id="about" class="py-16 container mx-auto text-center px-4">
-    <h3 class="text-3xl font-bold mb-4">Tentang kami</h3>
-    <p class="max-w-2xl mx-auto">JB14 GYM & FITNESS adalah pusat kebugaran dengan fasilitas modern dan pelatih profesional yang siap membantu Anda mencapai tujuan fitness dengan efektif.</p>
-  </section>
+    <section id="home" class="h-screen bg-gray-900 bg-cover bg-center text-white flex items-center justify-center text-center relative" style="background-image: url('./image/hero-bg.jpg');">
+        <div class="absolute inset-0 bg-black opacity-60"></div>
+        <div class="relative z-10 p-4">
+            <h2 class="text-4xl md:text-7xl font-extrabold mb-4 animate-fadeIn">Bangun Tubuhmu, Bangun Hidupmu</h2>
+            <p class="mb-8 text-xl md:text-2xl font-light">Mulai perjalanan fitness Anda bersama <span class="font-semibold text-red-500">JB14 GYM & FITNESS</span></p>
+            <a href="#contact" class="bg-red-500 text-white font-bold tracking-wider px-8 py-4 rounded-lg shadow-xl uppercase transition duration-300 transform hover:bg-red-600 hover:scale-105 inline-block">Join Now</a>
+        </div>
+    </section>
 
-    <section id="services" class="py-16 bg-gray-100">
-    <div class="container mx-auto text-center px-4">
-      <h3 class="text-3xl font-bold mb-6">Layanan kami</h3>
-      <div class="grid md:grid-cols-3 gap-6">
-        <div class="p-6 bg-white rounded shadow">
-          <h4 class="font-semibold mb-2">Pelatihan Pribadi</h4>
-          <p>Latihan 1-on-1 dengan pelatih profesional.</p>
-        </div>
-        <div class="p-6 bg-white rounded shadow">
-          <h4 class="font-semibold mb-2">Kelas Kelompok</h4>
-          <p>Kelas Zumba, Yoga, dan HIIT untuk semua level.</p>
-        </div>
-        <div class="p-6 bg-white rounded shadow">
-          <h4 class="font-semibold mb-2">Panduan Nutrisi</h4>
-          <p>Panduan makan sehat untuk hasil maksimal.</p>
-        </div>
-      </div>
-    </div>
-_</section>_
+    <section id="about" class="py-20 container mx-auto text-center px-4">
+        <h3 class="text-4xl font-extrabold mb-6 text-gray-900">Tentang Kami 💪</h3>
+        <p class="max-w-3xl mx-auto text-lg leading-relaxed text-gray-600">
+            <span class="font-bold text-red-500">JB14 GYM & FITNESS</span> adalah pusat kebugaran premium yang berkomitmen untuk menyediakan lingkungan terbaik bagi anggota kami. Dengan <span class="font-semibold">fasilitas modern</span>, peralatan kelas dunia, dan tim <span class="font-semibold">pelatih profesional</span>, kami siap membantu Anda mencapai setiap tujuan fitness dengan efektif dan aman. Kami lebih dari sekadar gym; kami adalah komunitas.
+        </p>
+    </section>
 
-    <section id="fasilitas" class="py-16 container mx-auto text-center px-4">
-    <h3 class="text-3xl font-bold mb-6">Fasilitas kami</h3>
-    <div class="grid md:grid-cols-3 gap-6">
-      <img src="./image/gym1.jpeg" class="rounded shadow" alt="Facility 1">
-      <img src="./image/gym4.jpg" class="rounded shadow" alt="Facility 2">
-      <img src="./image/gym3.jpg" class="rounded shadow" alt="Facility 3">
-    </div>
-  </section>
+    <section id="services" class="py-20 bg-gray-50">
+        <div class="container mx-auto text-center px-4">
+            <h3 class="text-4xl font-extrabold mb-12 text-gray-900">Layanan Kami ✨</h3>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="p-8 bg-white rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 border-t-4 border-red-500">
+                    <h4 class="text-xl font-bold mb-3 text-red-500">Pelatihan Pribadi</h4>
+                    <p class="text-gray-600">Program latihan 1-on-1 yang disesuaikan dan dipandu oleh pelatih bersertifikat untuk hasil optimal.</p>
+                </div>
+                <div class="p-8 bg-white rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 border-t-4 border-red-500">
+                    <h4 class="text-xl font-bold mb-3 text-red-500">Kelas Kelompok</h4>
+                    <p class="text-gray-600">Bergabunglah dalam kelas Zumba, Yoga, HIIT, dan lainnya. Latihan yang menyenangkan untuk semua level.</p>
+                </div>
+                <div class="p-8 bg-white rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 border-t-4 border-red-500">
+                    <h4 class="text-xl font-bold mb-3 text-red-500">Panduan Nutrisi</h4>
+                    <p class="text-gray-600">Konsultasi dan rencana makan sehat dari ahli gizi untuk mendukung target fitness Anda.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <section id="latihan" class="py-16 bg-gray-100">
-    <div class="container mx-auto text-center px-4">
-      <h3 class="text-3xl font-bold mb-6">Contoh Latihan</h3>
-            <div id="exercise-list" class="grid md:grid-cols-3 gap-6 text-left">
-                <p class="col-span-3 text-center">Memuat latihan...</p>
-      </div>
-    </div>
-  </section>
+    <section id="fasilitas" class="py-20 container mx-auto text-center px-4">
+        <h3 class="text-4xl font-extrabold mb-10 text-gray-900">Fasilitas Kami 🏋️</h3>
+        <div class="grid md:grid-cols-3 gap-6">
+            <img src="./image/gym1.jpeg" class="rounded-lg shadow-lg object-cover w-full h-64" alt="Facility 1">
+            <img src="./image/gym4.jpg" class="rounded-lg shadow-lg object-cover w-full h-64" alt="Facility 2">
+            <img src="./image/gym3.jpg" class="rounded-lg shadow-lg object-cover w-full h-64" alt="Facility 3">
+        </div>
+    </section>
 
-    <section id="testimonials" class="py-16">
-    <div class="container mx-auto text-center px-4">
-      <h3 class="text-3xl font-bold mb-6">Testimonials</h3>
-      <div class="grid md:grid-cols-2 gap-6">
-        <div class="bg-white p-6 rounded shadow border">
-          <p class="italic">"Sejak bergabung dengan GYMFIT, energi saya meningkat!"</p>
-          <span class="block mt-4 font-bold">- Andi</span>
-        </div>
-        <div class="bg-white p-6 rounded shadow border">
-          <p class="italic">"Pelatihnya ramah dan profesional, bikin latihan lebih disiplin."</p>
-          <span class="block mt-4 font-bold">- Sinta</span>
-        </div>
-      </div>
-    </div>
-  </section>
+    <section id="testimonials" class="py-20 bg-white">
+        <div class="container mx-auto text-center px-4">
+            <h3 class="text-4xl font-extrabold mb-10 text-gray-900">Apa Kata Mereka? 💬</h3>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-gray-50 p-8 rounded-xl shadow-md border-l-4 border-red-500 flex flex-col justify-between">
+                    <p class="italic text-lg text-gray-700">"Sejak bergabung dengan JB14 GYM & FITNESS, energi saya meningkat drastis! Peralatan yang lengkap dan suasana yang sangat mendukung."</p>
+                    <span class="block mt-6 font-bold text-red-500 text-right">- Andi P.</span>
+                </div>
+                <div class="bg-gray-50 p-8 rounded-xl shadow-md border-l-4 border-red-500 flex flex-col justify-between">
+                    <p class="italic text-lg text-gray-700">"Pelatihnya ramah, sangat profesional, dan benar-benar membantu saya membuat program latihan yang bikin latihan lebih disiplin."</p>
+                    <span class="block mt-6 font-bold text-red-500 text-right">- Sinta K.</span>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <section id="info-sehat" class="py-16">     <div class="container mx-auto text-center px-4">
-      <h3 class="text-3xl font-bold mb-6">Info Sehat Terkini</h3>
-            <div id="news-list" class="grid md:grid-cols-2 gap-6 text-left">
-        <p class="col-span-2 text-center">Memuat berita...</p>
-      </div>
-    </div>
-  </section>
+    <section id="info-sehat" class="py-20 bg-gray-100">
+        <div class="container mx-auto text-center px-4">
+            <h3 class="text-4xl font-extrabold mb-10 text-gray-900">Info Sehat Terkini 📰</h3>
+            <div id="news-list" class="grid md:grid-cols-2 gap-8 text-left">
+                <p class="col-span-2 text-center text-lg text-gray-500 italic">Memuat berita...</p>
+            </div>
+        </div>
+    </section>
 
-    <section id="contact" class="py-16 container mx-auto text-center px-4">
-    <h3 class="text-3xl font-bold mb-4">Kontak kami</h3>
-    <p class="mb-6">Hubungi kami untuk memulai perjalanan fitness Anda.</p>
-    <form class="max-w-lg mx-auto space-y-4">
-      <input type="text" placeholder="Nama" class="w-full border p-3 rounded">
-      <input type="email" placeholder="Email" class="w-full border p-3 rounded">
-      <textarea placeholder="Pesan" class="w-full border p-3 rounded"></textarea>
-      <button type="submit" class="bg-red-500 text-white px-6 py-3 rounded hover:bg-red-600">Kirim</button>
-    </form>
-  </section>
+    <section id="contact" class="py-20 container mx-auto text-center px-4">
+        <h3 class="text-4xl font-extrabold mb-4 text-gray-900">Kontak Kami 📞</h3>
+        <p class="mb-10 text-lg text-gray-600">Hubungi kami hari ini untuk konsultasi gratis dan mulai perjalanan fitness Anda.</p>
+        <form class="max-w-xl mx-auto space-y-5 bg-white p-8 rounded-xl shadow-2xl border-t-4 border-red-500">
+            <input type="text" placeholder="Nama Lengkap" class="w-full border border-gray-300 p-4 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition duration-300" aria-label="Nama Lengkap" required>
+            <input type="email" placeholder="Email Anda" class="w-full border border-gray-300 p-4 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition duration-300" aria-label="Email Anda" required>
+            <textarea placeholder="Pesan Anda" rows="5" class="w-full border border-gray-300 p-4 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition duration-300" aria-label="Pesan Anda" required></textarea>
+            <button type="submit" class="w-full bg-red-500 text-white font-bold tracking-wider px-6 py-4 rounded-lg uppercase transition duration-300 transform hover:bg-red-600 hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-red-300">Kirim Pesan</button>
+        </form>
+    </section>
 
-    <footer class="bg-black text-white p-6 text-center">
-    <p>&copy; 2025 GYMFIT. All Rights Reserved.</p>
-  </footer>
+    <footer class="bg-black text-white p-8 text-center mt-10">
+        <p class="text-sm">&copy; 2025 <span class="font-semibold text-red-500">JB14 GYM & FITNESS</span>. All Rights Reserved.</p>
+        <div class="mt-2 text-xs text-gray-400">Dibuat dengan ❤️ dan Tailwind CSS.</div>
+    </footer>
 
-      <script src="fetch.js" defer></script>
+    <script>
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+    <script src="fetch.js" defer></script>
 
 </body>
+
 </html>
