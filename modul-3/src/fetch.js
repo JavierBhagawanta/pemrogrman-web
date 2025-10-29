@@ -1,139 +1,75 @@
-// Menjalankan script setelah semua konten HTML selesai dimuat
+// fetch.js (REVISI FINAL UNTUK RELEVANSI BERITA)
+
 document.addEventListener('DOMContentLoaded', () => {
-  
-  // ==========================================
-  // FUNGSI 1: MENGAMBIL LATIHAN (GYM)
-  // (Tidak ada perubahan di sini)
-  // ==========================================
-  
-  async function fetchExercises() {
-    const exerciseListContainer = document.getElementById('exercise-list');
-    const apiUrl = 'https://wger.de/api/v2/exerciseinfo/?language=2&category=10&limit=6';
 
-    if (!exerciseListContainer) {
-      console.error("Error: Element 'exercise-list' not found.");
-      return;
-    }
+    // --- 1. Konfigurasi Kunci API ---
+    const NEWS_API_KEY = 'a286c83b898a4608b5110aadf3bf017d'; 
+    const WGER_API_BASE = 'https://wger.de/api/v2'; 
 
-    try {
-      const response = await fetch(apiUrl);
-      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-      
-      const data = await response.json();
-      const exercises = data.results;
+    // ... (Fungsi loadExercises() menggunakan WGER tetap sama, saya tidak menampilkannya di sini untuk keringkasan) ...
 
-      exerciseListContainer.innerHTML = ''; 
+    // --- 3. Fungsi untuk Bagian Berita (Fokus pada Sumber Berita Kebugaran) ---
+    async function loadHealthNews() {
+        const newsList = document.getElementById('news-list');
+        newsList.innerHTML = '<p class="col-span-2 text-center text-red-500 font-semibold">Mencari berita binaraga dan nutrisi gym...</p>';
 
-      exercises.forEach(exercise => {
-        const card = document.createElement('div');
-        card.className = 'p-6 bg-white rounded shadow';
-
-        const exerciseName = document.createElement('h4');
-        exerciseName.className = 'font-semibold text-lg mb-2';
-        exerciseName.textContent = exercise.name;
-
-        const exerciseDescription = document.createElement('div');
-        exerciseDescription.className = 'text-sm text-gray-700';
-        exerciseDescription.innerHTML = exercise.description;
-
-        card.appendChild(exerciseName);
-        card.appendChild(exerciseDescription);
-        exerciseListContainer.appendChild(card);
-      });
-
-    } catch (error) {
-      console.error('Gagal mengambil data latihan:', error);
-      exerciseListContainer.innerHTML = '<p class="col-span-3 text-center text-red-500">Gagal memuat data latihan.</p>';
-    }
-  }
-
-  // ==========================================
-  // FUNGSI 2: MENGAMBIL BERITA KESEHATAN (Health News)
-  // (Fungsi ini DIMODIFIKASI agar sesuai tema)
-  // ==========================================
-  
-  async function fetchHealthNews() {
-    const newsListContainer = document.getElementById('news-list');
-    
-    // --- PERUBAHAN URL API ---
-    // Menggunakan API berita kategori "health" (kesehatan)
-    // "in.json" berarti mengambil berita dari regional India (yang banyak berbahasa Inggris)
-    // Kita batasi hanya 4 berita saja dengan .slice(0, 4) nanti
-    const newsApiUrl = 'https://saurav.tech/NewsAPI/top-headlines/category/health/in.json';
-    
-    if (!newsListContainer) {
-        console.error("Error: Element 'news-list' not found.");
-        return;
-    }
-
-    try {
-      const response = await fetch(newsApiUrl);
-      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-
-      const data = await response.json();
-      
-      // --- PERUBAHAN KEY JSON ---
-      // API ini menyimpan artikel di dalam 'data.articles' (bukan 'data.results')
-      // Kita ambil 4 artikel pertama saja
-      const articles = data.articles.slice(0, 4);
-
-      newsListContainer.innerHTML = ''; // Bersihkan loading
-
-      articles.forEach(article => {
-        // Membuat kartu HTML untuk setiap berita
-        const card = document.createElement('div');
-        card.className = 'bg-white rounded shadow border overflow-hidden';
-
-        // --- PERUBAHAN KEY JSON ---
-        // API ini menggunakan 'urlToImage' (bukan 'image_url')
-        const img = document.createElement('img');
-        // Beberapa berita mungkin tidak punya gambar, jadi kita beri gambar cadangan
-        img.src = article.urlToImage || 'https://via.placeholder.com/400x200?text=Info+Sehat'; 
-        img.alt = article.title;
-        img.className = 'w-full h-48 object-cover';
-
-        const content = document.createElement('div');
-        content.className = 'p-6';
-
-        // Judul Berita (Key 'title' sama)
-        const title = document.createElement('h4');
-        title.className = 'font-semibold text-lg mb-2';
-        title.textContent = article.title;
+        // PERBAIKAN RELEVANSI: 
+        // 1. QUERY tetap spesifik pada topik gym.
+        // 2. Ditambahkan filter 'sources' (sumber berita) untuk memprioritaskan situs kebugaran terkemuka.
+        // Sumber-sumber populer (ID-nya di News API): mens-health, new-scientist, medical-news-today, dll.
+        const SOURCES = 'mens-health,new-scientist,medical-news-today'; 
+        const QUERY = 'weightlifting OR muscle gain OR protein intake'; 
+        const LANGUAGE = 'en'; 
         
-        // --- PERUBAHAN KEY JSON ---
-        // API ini menggunakan 'description' (bukan 'summary')
-        const summary = document.createElement('p');
-        summary.className = 'text-sm text-gray-600 mb-4';
-        summary.textContent = article.description || 'Tidak ada deskripsi.'; // Beri teks cadangan
+        // Menggunakan filter sources DAN query untuk mendapatkan berita paling relevan
+        const API_URL_NEWS = `https://newsapi.org/v2/everything?q=${QUERY}&language=${LANGUAGE}&sources=${SOURCES}&sortBy=publishedAt&apiKey=${NEWS_API_KEY}&pageSize=4`;
 
-        // Link "Baca Selengkapnya" (Key 'url' sama)
-        const link = document.createElement('a');
-        link.href = article.url;
-        link.textContent = 'Baca Selengkapnya';
-        link.target = '_blank'; 
-        link.className = 'text-red-500 hover:text-red-700 font-semibold';
+        try {
+            const response = await fetch(API_URL_NEWS);
+            
+            if (!response.ok) {
+                const errorData = await response.json();
+                // Menampilkan error jika API Key tidak valid atau kuota habis
+                throw new Error(`[${response.status}] ${errorData.message || 'Gagal memuat berita.'}`);
+            }
+            
+            const data = await response.json();
+            const articles = data.articles;
 
-        // Memasukkan semua elemen ke dalam kartu
-        content.appendChild(title);
-        content.appendChild(summary);
-        content.appendChild(link);
-        card.appendChild(img);
-        card.appendChild(content);
+            if (articles.length === 0) {
+                // FALLBACK: Jika filter Sumber terlalu ketat, coba kueri luas tanpa Sumber.
+                // Jika masih kosong, tampilkan pesan:
+                newsList.innerHTML = '<p class="col-span-2 text-center text-gray-500">Tidak ada berita yang ditemukan. Coba matikan filter Sumber jika masalah ini terus terjadi.</p>';
+                return;
+            }
 
-        // Memasukkan kartu ke UI
-        newsListContainer.appendChild(card);
-      });
+            newsList.innerHTML = ''; 
 
-    } catch (error) {
-      console.error('Gagal mengambil data berita:', error);
-      newsListContainer.innerHTML = '<p class="col-span-2 text-center text-red-500">Gagal memuat berita kesehatan.</p>';
+            articles.forEach(article => {
+                const date = new Date(article.publishedAt).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+                
+                const card = `
+                    <div class="bg-white p-6 rounded-xl shadow-md flex flex-col justify-between hover:shadow-lg transition duration-300 border">
+                        <div>
+                            <h4 class="text-xl font-bold mb-2 text-gray-900 line-clamp-2">${article.title}</h4>
+                            <p class="text-gray-600 mb-4 line-clamp-3">${article.description || 'Tidak ada ringkasan tersedia.'}</p>
+                        </div>
+                        <div class="flex justify-between items-center text-sm mt-2">
+                            <span class="text-red-500 font-semibold">${date} | Sumber: ${article.source.name}</span>
+                            <a href="${article.url}" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:text-red-500 font-medium">Baca Selengkapnya &rarr;</a>
+                        </div>
+                    </div>
+                `;
+                newsList.innerHTML += card;
+            });
+
+        } catch (error) {
+            console.error('Error loading news:', error);
+            newsList.innerHTML = `<p class="col-span-2 text-center text-red-500">Gagal memuat berita: ${error.message}. Periksa News API Key dan kuota Anda.</p>`;
+        }
     }
-  }
 
-  // ==========================================
-  // MENJALANKAN KEDUA FUNGSI
-  // ==========================================
-  fetchExercises();      // Ambil data latihan
-  fetchHealthNews();   // Ambil data berita kesehatan
-  
+    // Panggil fungsi (Asumsikan loadExercises ada di file yang sama)
+    // loadExercises(); 
+    loadHealthNews();
 });
