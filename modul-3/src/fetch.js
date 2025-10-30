@@ -1,35 +1,31 @@
-// fetch.js (REVISI FINAL UNTUK RELEVANSI BERITA)
+// fetch.js (REVISI FINAL FOKUS HANYA PADA NEWS API)
 
 document.addEventListener('DOMContentLoaded', () => {
 
     // --- 1. Konfigurasi Kunci API ---
+    // Poin 2 (Sumber API): Menggunakan News API, yang merupakan Public API gratis.
     const NEWS_API_KEY = 'a286c83b898a4608b5110aadf3bf017d'; 
-    const WGER_API_BASE = 'https://wger.de/api/v2'; 
-
-    // ... (Fungsi loadExercises() menggunakan WGER tetap sama, saya tidak menampilkannya di sini untuk keringkasan) ...
-
-    // --- 3. Fungsi untuk Bagian Berita (Fokus pada Sumber Berita Kebugaran) ---
+    
+    // --- 2. Fungsi untuk Bagian Berita ---
     async function loadHealthNews() {
-        const newsList = document.getElementById('news-list');
+        // Poin 5 (Tampilan Dinamis): newsList adalah elemen UI tempat data akan ditampilkan.
+        const newsList = document.getElementById('news-list'); 
         newsList.innerHTML = '<p class="col-span-2 text-center text-red-500 font-semibold">Mencari berita binaraga dan nutrisi gym...</p>';
 
-        // PERBAIKAN RELEVANSI: 
-        // 1. QUERY tetap spesifik pada topik gym.
-        // 2. Ditambahkan filter 'sources' (sumber berita) untuk memprioritaskan situs kebugaran terkemuka.
-        // Sumber-sumber populer (ID-nya di News API): mens-health, new-scientist, medical-news-today, dll.
+        // Poin 3 (Kesesuaian Tema): Query dan Sources sangat spesifik pada topik kebugaran.
         const SOURCES = 'mens-health,new-scientist,medical-news-today'; 
         const QUERY = 'weightlifting OR muscle gain OR protein intake'; 
         const LANGUAGE = 'en'; 
         
-        // Menggunakan filter sources DAN query untuk mendapatkan berita paling relevan
+        // Poin 4 (Method): Seluruh data request dikirim melalui URL (ciri khas Method GET).
         const API_URL_NEWS = `https://newsapi.org/v2/everything?q=${QUERY}&language=${LANGUAGE}&sources=${SOURCES}&sortBy=publishedAt&apiKey=${NEWS_API_KEY}&pageSize=4`;
 
         try {
-            const response = await fetch(API_URL_NEWS);
+            // Poin 1 & 4: Fungsionalitas Utama (Fetch) menggunakan Method GET (default fetch)
+            const response = await fetch(API_URL_NEWS); 
             
             if (!response.ok) {
                 const errorData = await response.json();
-                // Menampilkan error jika API Key tidak valid atau kuota habis
                 throw new Error(`[${response.status}] ${errorData.message || 'Gagal memuat berita.'}`);
             }
             
@@ -37,17 +33,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const articles = data.articles;
 
             if (articles.length === 0) {
-                // FALLBACK: Jika filter Sumber terlalu ketat, coba kueri luas tanpa Sumber.
-                // Jika masih kosong, tampilkan pesan:
-                newsList.innerHTML = '<p class="col-span-2 text-center text-gray-500">Tidak ada berita yang ditemukan. Coba matikan filter Sumber jika masalah ini terus terjadi.</p>';
+                newsList.innerHTML = '<p class="col-span-2 text-center text-gray-500">Tidak ada berita kebugaran relevan yang ditemukan saat ini.</p>';
                 return;
             }
 
+            // Poin 5: Konten lama dihapus sebelum konten dinamis baru ditambahkan.
             newsList.innerHTML = ''; 
 
             articles.forEach(article => {
                 const date = new Date(article.publishedAt).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
                 
+                // Poin 5: Pembuatan struktur HTML (card) secara dinamis
                 const card = `
                     <div class="bg-white p-6 rounded-xl shadow-md flex flex-col justify-between hover:shadow-lg transition duration-300 border">
                         <div>
@@ -60,16 +56,15 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                     </div>
                 `;
-                newsList.innerHTML += card;
+                // Poin 1 & 5: Memasukkan data ke dalam antarmuka web (UI) secara dinamis
+                newsList.innerHTML += card; 
             });
 
         } catch (error) {
             console.error('Error loading news:', error);
-            newsList.innerHTML = `<p class="col-span-2 text-center text-red-500">Gagal memuat berita: ${error.message}. Periksa News API Key dan kuota Anda.</p>`;
+            newsList.innerHTML = `<p class="col-span-2 text-center text-red-500">Gagal memuat berita: ${error.message}. Periksa News API Key atau kuota Anda.</p>`;
         }
     }
 
-    // Panggil fungsi (Asumsikan loadExercises ada di file yang sama)
-    // loadExercises(); 
     loadHealthNews();
 });
